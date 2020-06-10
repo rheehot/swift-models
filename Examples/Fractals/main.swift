@@ -25,6 +25,19 @@ struct FractalCommand: ParsableCommand {
       JuliaSubcommand.self,
       MandelbrotSubcommand.self,
     ])
+
+    @Flag(help: "Use eager backend.")
+    var eager: Bool
+
+    @Flag(help: "Use X10 backend.")
+    var x10: Bool
+
+    func validate() throws {
+      guard !(eager && x10) else {
+        throw ValidationError(
+          "Can't specify both --eager and --x10 backends.")
+      }
+    }
 }
 
 extension FractalCommand {
@@ -33,11 +46,11 @@ extension FractalCommand {
       commandName: "JuliaSet",
       abstract: "Calculate and save an image of the Julia set.")
 
-    @Flag(help: "Use eager backend.")
-    var eager: Bool
+    // @Flag(help: "Use eager backend.")
+    // var eager: Bool
 
-    @Flag(help: "Use X10 backend.")
-    var x10: Bool
+    // @Flag(help: "Use X10 backend.")
+    // var x10: Bool
 
     @Option(help: "Number of iterations to run.")
     var iterations: Int?
@@ -57,12 +70,12 @@ extension FractalCommand {
     @Option(help: "Output image size.")
     var imageSize: ImageSize?
 
-    func validate() throws {
-      guard !(eager && x10) else {
-        throw ValidationError(
-          "Can't specify both --eager and --x10 backends.")
-      }
-    }
+    // func validate() throws {
+    //   guard !(eager && x10) else {
+    //     throw ValidationError(
+    //       "Can't specify both --eager and --x10 backends.")
+    //   }
+    // }
 
     func run() throws {
       let device: Device
@@ -97,11 +110,11 @@ extension FractalCommand {
       commandName: "MandelbrotSet",
       abstract: "Calculate and save an image of the Mandelbrot set.")
 
-    @Flag(help: "Use eager backend.")
-    var eager: Bool
+    // @Flag(help: "Use eager backend.")
+    // var eager: Bool
 
-    @Flag(help: "Use X10 backend.")
-    var x10: Bool
+    // @Flag(help: "Use X10 backend.")
+    // var x10: Bool
 
     @Option(help: "Number of iterations to run.")
     var iterations: Int?
@@ -118,12 +131,12 @@ extension FractalCommand {
     @Option(help: "Output image size.")
     var imageSize: ImageSize?
 
-    func validate() throws {
-      guard !(eager && x10) else {
-        throw ValidationError(
-          "Can't specify both --eager and --x10 backends.")
-      }
-    }
+    // func validate() throws {
+    //   guard !(eager && x10) else {
+    //     throw ValidationError(
+    //       "Can't specify both --eager and --x10 backends.")
+    //   }
+    // }
 
     func run() throws {
       let device: Device
